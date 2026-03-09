@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Profil Amoureux · Loire-Atlantique · Les Cœurs Solitaires</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+ :root {
+ --violet: #9B59B6;
+ --violet-deep: #7B3FA0;
+ --violet-dark: #5C2D91;
+ --fuchsia: #E91E8C;
+ --fuchsia-light: #FF6BB5;
+ --turquoise: #00BCD4;
+ --gold: #C9A84C;
+ --gold-light: #E8C97A;
+ --cream: #FFF8F5;
+ --white: #FAFAFA;
+ --noir: #1A1A1A;
+ --muted: #8A7A8A;
+ --border: rgba(155,89,182,0.18);
+ --card: rgba(255,255,255,0.96);
+ --deep: rgba(155,89,182,0.06);
+ }
+
+ * { margin:0; padding:0; box-sizing:border-box; }
+
+ body {
+ font-family: 'Jost', sans-serif;
+ background: var(--cream);
+ color: var(--noir);
+ min-height: 100vh;
+ position: relative;
+ overflow-x: hidden;
+ }
+
+ /* Fond animé */
+ body::before {
+ content:'';
+ position:fixed; inset:0; z-index:0;
+ background:
+ radial-gradient(ellipse at 15% 20%, rgba(155,89,182,0.08) 0%, transparent 55%), radial-gradient(ellipse at 85% 75%, rgba(0,188,212,0.06) 0%, transparent 50%), radial-gradient(ellipse at 60% 10%, rgba(233,30,140,0.05) 0%, transparent 40%);
+ pointer-events:none;
+ }
+
+ /* ── BANDEAU ÉVÉNEMENTS DÉFILANT ── */
+ .events-ticker {
+ position: fixed;
+ top: 0; left: 0; right: 0;
+ z-index: 100;
+ background: linear-gradient(135deg, var(--violet-dark), var(--violet-deep));
+ overflow: hidden;
+ height: 44px;
+ display: flex;
+ align-items: center;
+ border-bottom: 1px solid rgba(255,255,255,0.1);
+ }
+
+ .ticker-track {
+ display: flex;
+ animation: tickerScroll 28s linear infinite;
+ white-space: nowrap;
+ gap: 0;
+ }
+
+ .ticker-track:hover { animation-play-state: paused; }
+
+ @keyframes tickerScroll {
+ 0% { transform: translateX(0); }
+ 100% { transform: translateX(-50%); }
+ }
+
+ .ticker-item {
+ display: inline-flex;
+ align-items: center;
+ gap: 10px;
+ padding: 0 32px;
+ font-size: 12px;
+ font-weight: 500;
+ color: rgba(255,255,255,0.9);
+ letter-spacing: 0.3px;
+ border-right: 1px solid rgba(255,255,255,0.1);
+ height: 44px;
+ cursor: pointer;
+ transition: background 0.2s;
+ text-decoration: none;
+ }
+
+ .ticker-item:hover { background: rgba(255,255,255,0.08); }
+
+ .ticker-dot {
+ width: 6px; height: 6px;
+ background: var(--fuchsia-light);
+ border-radius: 50%;
+ flex-shrink: 0;
+ animation: blink 1.8s ease-in-out infinite;
+ }
+
+ @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+ .ticker-price {
+ background: var(--fuchsia);
+ color: white;
+ font-size: 10px;
+ font-weight: 600;
+ padding: 2px 8px;
+ border-radius: 20px;
+ letter-spacing: 0.3px;
+ }
+
+ /* ── WRAPPER ── */
+ .wrapper {
+ position: relative;
+ z-index: 1;
+ max-width: 640px;
+ margin: 0 auto;
+ padding: 68px 20px 60px;
+ }
+
+ /* ── ÉCRANS ── */
+ .screen { display: none; }
+ .screen.active { display: block; animation: fadeUp 0.55s ease forwards; }
+
+ @keyframes fadeUp {
+ from { opacity:0; transform:translateY(16px); }
+ to { opacity:1; transform:translateY(0); }
+ }
+
+ /* ── HEADER MARQUE ── */
+ .brand-header {
+ text-align: center;
+ padding: 20px 0 32px;
+ }
+
+ .brand-heart {
+ margin: 0 auto 14px;
+ display: block;
+ animation: floatHeart 3s ease-in-out infinite;
+ filter: drop-shadow(0 6px 20px rgba(233,30,140,0.35));
+ }
+
+ @keyframes floatHeart { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+ .brand-name {
+ font-family: 'Playfair Display', serif;
+ font-size: clamp(22px,4vw,28px);
+ font-weight: 700;
+ color: var(--noir);
+ margin-bottom: 3px;
+ letter-spacing: 0.3px;
+ }
+
+ .brand-sub {
+ font-family: 'Cormorant Garamond', serif;
+ font-style: italic;
+ font-size: 16px;
+ color: var(--violet);
+ letter-spacing: 0.5px;
+ }
+
+ /* ── INTRO ── */
+ .intro-eyebrow {
+ font-size: 10px;
+ letter-spacing: 3px;
+ text-transform: uppercase;
+ color: var(--violet);
+ font-weight: 600;
+ text-align: center;
+ margin-bottom: 14px;
+ opacity: 0.8;
+ }
+
+ .intro-title {
+ font-family: 'Playfair Display', serif;
+ font-size: clamp(34px,6vw,52px);
+ font-weight: 700;
+ line-height: 1.1;
+ color: var(--noir);
+ text-align: center;
+ margin-bottom: 10px;
+ }
+
+ .intro-title em {
+ color: var(--violet);
+ font-style: italic;
+ }
+
+ .intro-tagline {
+ font-family: 'Cormorant Garamond', serif;
+ font-style: italic;
+ font-size: clamp(18px,3.5vw,24px);
+ color: var(--fuchsia);
+ text-align: center;
+ margin-bottom: 24px;
+ line-height: 1.5;
+ }
+
+ .intro-body {
+ font-size: 15px;
+ line-height: 1.9;
+ color: var(--muted);
+ text-align: center;
+ max-width: 520px;
+ margin: 0 auto 32px;
+ }
+
+ .intro-stats {
+ display: flex;
+ justify-content: center;
+ gap: 24px;
+ margin-bottom: 32px;
+ flex-wrap: wrap;
+ }
+
+ .stat-item {
+ text-align: center;
+ background: var(--card);
+ border: 1px solid var(--border);
+ border-radius: 12px;
+ padding: 14px 20px;
+ min-width: 110px;
+ }
+
+ .stat-num {
+ font-family: 'Playfair Display', serif;
+ font-size: 28px;
+ font-weight: 700;
+ color: var(--violet);
+ line-height: 1;
+ margin-bottom: 4px;
+ }
+
+ .stat-label {
+ font-size: 11px;
+ color: var(--muted);
+ letter-spacing: 0.5px;
+ }
+
+ /* ── BOUTONS ── */
+ .btn-primary {
+ width: 100%;
+ background: linear-gradient(135deg, var(--violet), var(--fuchsia));
+ color: white;
+ border: none;
+ padding: 18px 32px;
+ border-radius: 50px;
+ font-family: 'Jost', sans-serif;
+ font-size: 15px;
+ font-weight: 600;
+ letter-spacing: 0.5px;
+ cursor: pointer;
+ transition: all 0.25s;
+ box-shadow: 0 8px 28px rgba(155,89,182,0.28);
+ display: block;
+ text-align: center;
+ text-decoration: none;
+ }
+
+ .btn-primary:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 14px 40px rgba(155,89,182,0.38);
+ }
+
+ .btn-secondary {
+ background: white;
+ color: var(--violet);
+ border: 2px solid rgba(155,89,182,0.25);
+ padding: 14px 24px;
+ border-radius: 50px;
+ font-family: 'Jost', sans-serif;
+ font-size: 13px;
+ font-weight: 600;
+ letter-spacing: 0.5px;
+ cursor: pointer;
+ transition: all 0.2s;
+ }
+
+ .btn-secondary:hover {
+ border-color: var(--violet);
+ background: #F3E5F5;
+ }
+
+ .btn-back {
+ background: none;
+ border: none;
+ color: var(--muted);
+ font-family: 'Jost', sans-serif;
+ font-size: 13px;
+ cursor: pointer;
+ padding: 10px 0;
+ transition: color 0.2s;
+ }
+
+ .btn-back:hover { color: var(--violet); }
+
+ /* ── INFOS LÉGALES INTRO ── */
+ .legal-box {
+ background: white;
+ border: 1px solid var(--border);
+ border-radius: 16px;
+ padding: 18px 22px;
+ margin: 24px 0;
+ font-size: 12px;
+ color: var(--muted);
+ line-height: 1.8;
+ text-align: left;
+ }
+
+ .legal-box-title {
+ font-size: 10px;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--violet);
+ font-weight: 600;
+ margin-bottom: 8px;
+ }
+
+ /* ── BARRE DE PROGRESSION ── */
+ .prog-wrap { margin-bottom: 32px; }
+
+ .prog-top {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ margin-bottom: 8px;
+ }
+
+ .prog-label {
+ font-size: 10px;
+ letter-spacing: 2.5px;
+ text-transform: uppercase;
+ color: var(--violet);
+ font-weight: 600;
+ }
+
+ .prog-count {
+ font-size: 12px;
+ color: var(--muted);
+ font-weight: 500;
+ }
+
+ .prog-bar {
+ height: 3px;
+ background: rgba(155,89,182,0.12);
+ border-radius: 3px;
+ overflow: hidden;
+ }
+
+ .prog-fill {
+ height: 100%;
+ background: linear-gradient(90deg, var(--violet), var(--fuchsia));
+ border-radius: 3px;
+ transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+ }
+
+ /* ── QUESTION ── */
+ .cat-tag {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ font-size: 10px;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--violet);
+ border: 1px solid var(--border);
+ background: rgba(155,89,182,0.06);
+ padding: 5px 14px;
+ border-radius: 20px;
+ margin-bottom: 18px;
+ }
+
+ .q-text {
+ font-family: 'Playfair Display', serif;
+ font-size: clamp(20px,3.8vw,27px);
+ font-weight: 600;
+ line-height: 1.4;
+ color: var(--noir);
+ margin-bottom: 28px;
+ }
+
+ /* ── OPTIONS QUIZ ── */
+ .opts { display: flex; flex-direction: column; gap: 10px; }
+
+ .opt {
+ background: white;
+ border: 1.5px solid var(--border);
+ border-radius: 14px;
+ padding: 14px 18px;
+ cursor: pointer;
+ transition: all 0.18s;
+ display: flex;
+ gap: 14px;
+ align-items: flex-start;
+ }
+
+ .opt:hover {
+ border-color: rgba(155,89,182,0.5);
+ background: rgba(155,89,182,0.03);
+ transform: translateX(3px);
+ }
+
+ .opt.sel {
+ border-color: var(--violet);
+ background: rgba(155,89,182,0.07);
+ transform: translateX(3px);
+ }
+
+ .opt-radio {
+ width: 20px; height: 20px;
+ border-radius: 50%;
+ border: 2px solid rgba(155,89,182,0.3);
+ flex-shrink: 0;
+ margin-top: 1px;
+ transition: all 0.18s;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+
+ .opt.sel .opt-radio {
+ background: var(--violet);
+ border-color: var(--violet);
+ }
+
+ .opt.sel .opt-radio::after {
+ content: '';
+ width: 7px; height: 7px;
+ background: white;
+ border-radius: 50%;
+ }
+
+ .opt-text {
+ font-size: 14px;
+ line-height: 1.6;
+ color: var(--noir);
+ padding-top: 1px;
+ }
+
+ /* ── CHAMPS TEXTE ── */
+ .field-input {
+ width: 100%;
+ background: white;
+ border: 1.5px solid var(--border);
+ border-radius: 14px;
+ padding: 16px 20px;
+ font-family: 'Jost', sans-serif;
+ font-size: 15px;
+ color: var(--noir);
+ outline: none;
+ transition: border-color 0.2s;
+ resize: vertical;
+ line-height: 1.6;
+ }
+
+ .field-input:focus { border-color: var(--violet); }
+ .field-input::placeholder { color: rgba(138,122,138,0.6); }
+
+ /* ── NAVIGATION QUIZ ── */
+ .q-nav {
+ display: flex;
+ gap: 12px;
+ margin-top: 28px;
+ align-items: center;
+ }
+
+ .btn-next-q {
+ flex: 1;
+ background: linear-gradient(135deg, var(--violet), var(--fuchsia));
+ color: white;
+ border: none;
+ padding: 16px 24px;
+ border-radius: 50px;
+ font-family: 'Jost', sans-serif;
+ font-size: 14px;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.2s;
+ opacity: 0;
+ pointer-events: none;
+ box-shadow: 0 6px 24px rgba(155,89,182,0.25);
+ }
+
+ .btn-next-q.show {
+ opacity: 1;
+ pointer-events: auto;
+ animation: fadeUp 0.3s ease;
+ }
+
+ .btn-next-q:hover { transform: translateY(-2px); }
+
+ .error-msg {
+ color: #D32F2F;
+ font-size: 13px;
+ margin-top: 8px;
+ display: none;
+ }
+
+ /* ── CAPTURE EMAIL ── */
+ .capture-wrap {
+ text-align: center;
+ padding: 20px 0 10px;
+ }
+
+ .capture-heart {
+ font-size: 52px;
+ display: block;
+ margin: 0 auto 18px;
+ animation: floatHeart 3s ease-in-out infinite;
+ }
+
+ .capture-title {
+ font-family: 'Playfair Display', serif;
+ font-size: clamp(28px,5vw,38px);
+ font-weight: 700;
+ line-height: 1.2;
+ color: var(--noir);
+ margin-bottom: 12px;
+ }
+
+ .capture-title em { color: var(--violet); font-style: italic; }
+
+ .capture-sub {
+ font-family: 'Cormorant Garamond', serif;
+ font-style: italic;
+ font-size: 17px;
+ color: var(--muted);
+ line-height: 1.7;
+ margin-bottom: 32px;
+ max-width: 440px;
+ margin-inline: auto;
+ }
+
+ .form-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+
+ .rgpd-label {
+ display: flex;
+ align-items: flex-start;
+ gap: 10px;
+ text-align: left;
+ cursor: pointer;
+ padding: 12px 16px;
+ background: white;
+ border: 1px solid var(--border);
+ border-radius: 12px;
+ transition: border-color 0.2s;
+ }
+
+ .rgpd-label:hover { border-color: rgba(155,89,182,0.4); }
+
+ .rgpd-label input[type="checkbox"] {
+ accent-color: var(--violet);
+ width: 16px; height: 16px;
+ flex-shrink: 0;
+ margin-top: 2px;
+ }
+
+ .rgpd-text {
+ font-size: 12px;
+ color: var(--muted);
+ line-height: 1.6;
+ }
+
+ .rgpd-text strong { color: var(--noir); }
+
+ /* ── RÉSULTAT ── */
+ .result-hero {
+ text-align: center;
+ padding: 8px 0 32px;
+ border-bottom: 2px solid var(--border);
+ margin-bottom: 32px;
+ position: relative;
+ }
+
+ .result-bg-text {
+ font-family: 'Playfair Display', serif;
+ font-size: 120px;
+ font-weight: 700;
+ color: rgba(155,89,182,0.05);
+ line-height: 1;
+ position: absolute;
+ top: 0; left: 50%;
+ transform: translateX(-50%);
+ white-space: nowrap;
+ pointer-events: none;
+ user-select: none;
+ }
+
+ .result-emoji {
+ font-size: 64px;
+ display: block;
+ margin: 0 auto 16px;
+ position: relative;
+ z-index: 1;
+ filter: drop-shadow(0 4px 20px rgba(233,30,140,0.3));
+ }
+
+ .result-eyebrow {
+ font-size: 10px;
+ letter-spacing: 3px;
+ text-transform: uppercase;
+ color: var(--violet);
+ font-weight: 600;
+ margin-bottom: 10px;
+ position: relative;
+ z-index: 1;
+ }
+
+ .result-name {
+ font-family: 'Playfair Display', serif;
+ font-size: clamp(30px,5vw,44px);
+ font-weight: 700;
+ color: var(--noir);
+ line-height: 1.15;
+ margin-bottom: 8px;
+ position: relative;
+ z-index: 1;
+ }
+
+ .result-sub {
+ font-family: 'Cormorant Garamond', serif;
+ font-style: italic;
+ font-size: 20px;
+ color: var(--fuchsia);
+ margin-bottom: 20px;
+ position: relative;
+ z-index: 1;
+ }
+
+ .result-desc {
+ font-size: 15px;
+ line-height: 1.9;
+ color: var(--muted);
+ max-width: 520px;
+ margin: 0 auto;
+ position: relative;
+ z-index: 1;
+ }
+
+ /* ── SECTIONS RÉSULTAT ── */
+ .res-section { margin-bottom: 28px; }
+
+ .sec-title {
+ font-size: 10px;
+ letter-spacing: 3px;
+ text-transform: uppercase;
+ color: var(--violet);
+ font-weight: 600;
+ padding-bottom: 12px;
+ border-bottom: 1px solid var(--border);
+ margin-bottom: 16px;
+ }
+
+ .traits-grid {
+ display: grid;
+ grid-template-columns: 1fr 1fr;
+ gap: 10px;
+ }
+
+ .trait-card {
+ background: white;
+ border: 1px solid var(--border);
+ border-radius: 14px;
+ padding: 16px;
+ }
+
+ .trait-icon { font-size: 22px; margin-bottom: 8px; }
+ .trait-label {
+ font-size: 10px;
+ letter-spacing: 2px;
+ text-transform: uppercase;
+ color: var(--violet);
+ margin-bottom: 4px;
+ font-weight: 600;
+ }
+ .trait-val { font-size: 13px; color: var(--noir); line-height: 1.5; }
+
+ .box {
+ background: white;
+ border: 1px solid var(--border);
+ border-radius: 14px;
+ padding: 22px 24px;
+ }
+
+ .box p { font-size: 15px; line-height: 1.9; color: var(--noir); }
+
+ /* ── COMPATIBILITÉS ── */
+ .compat-list { display: flex; flex-direction: column; gap: 10px; }
+
+ .compat-row {
+ background: white;
+ border: 1px solid var(--border);
+ border-radius: 14px;
+ padding: 16px 20px;
+ display: flex;
+ align-items: center;
+ gap: 16px;
+ transition: border-color 0.2s;
+ }
+
+ .compat-row:hover { border-color: rgba(155,89,182,0.4); }
+
+ .compat-emoji { font-size: 32px; flex-shrink: 0; }
+ .compat-info { flex: 1; }
+ .compat-name { font-size: 15px; font-weight: 600; color: var(--noir); margin-bottom: 3px; }
+ .compat-why { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+ .compat-badge {
+ font-size: 11px;
+ padding: 4px 12px;
+ border-radius: 20px;
+ font-weight: 600;
+ flex-shrink: 0;
+ }
+
+ .badge-high { background: rgba(0,188,212,0.12); color: #00838F; }
+ .badge-med { background: rgba(155,89,182,0.12); color: var(--violet); }
+ .badge-comp { background: rgba(201,168,76,0.15); color: #8a6d1a; }
+
+ /* ── CTA ÉVÉNEMENTS RÉSULTAT ── */
+ .cta-events {
+ background: linear-gradient(135deg, var(--violet-dark), var(--violet-deep));
+ border-radius: 20px;
+ padding: 32px 28px;
+ text-align: center;
+ margin: 32px 0 20px;
+ position: relative;
+ overflow: hidden;
+ }
+
+ .cta-events::before {
+ content: '';
+ position: absolute; inset: 0;
+ background: radial-gradient(circle at 80% 20%, rgba(233,30,140,0.15) 0%, transparent 50%);
+ pointer-events: none;
+ }
+
+ .cta-events-eyebrow {
+ font-size: 10px;
+ letter-spacing: 3px;
+ text-transform: uppercase;
+ color: rgba(255,255,255,0.6);
+ margin-bottom: 12px;
+ position: relative;
+ }
+
+ .cta-events-title {
+ font-family: 'Playfair Display', serif;
+ font-size: clamp(24px,4vw,34px);
+ font-weight: 700;
+ color: white;
+ line-height: 1.2;
+ margin-bottom: 8px;
+ position: relative;
+ }
+
+ .cta-events-title em { color: var(--gold-light); font-style: italic; }
+
+ .cta-events-text {
+ font-family: 'Cormorant Garamond', serif;
+ font-style: italic;
+ font-size: 16px;
+ color: rgba(255,255,255,0.75);
+ line-height: 1.7;
+ margin-bottom: 28px;
+ position: relative;
+ }
+
+ .events-grid {
+ display: flex;
+ flex-direction: column;
+ gap: 12px;
+ margin-bottom: 16px;
+ position: relative;
+ }
+
+ .event-btn {
+ display: flex;
+ align-items: center;
+ justify-content: space-between;
+ gap: 12px;
+ background: rgba(255,255,255,0.1);
+ border: 1px solid rgba(255,255,255,0.18);
+ border-radius: 14px;
+ padding: 16px 20px;
+ text-decoration: none;
+ transition: all 0.2s;
+ cursor: pointer;
+ }
+
+ .event-btn:hover {
+ background: rgba(255,255,255,0.18);
+ border-color: rgba(255,255,255,0.3);
+ transform: translateX(4px);
+ }
+
+ .event-info { text-align: left; }
+ .event-name {
+ font-size: 14px;
+ font-weight: 600;
+ color: white;
+ margin-bottom: 3px;
+ }
+ .event-date {
+ font-size: 12px;
+ color: rgba(255,255,255,0.6);
+ letter-spacing: 0.3px;
+ }
+
+ .event-arrow {
+ color: var(--gold-light);
+ font-size: 18px;
+ flex-shrink: 0;
+ }
+
+ .early-badge {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ background: var(--fuchsia);
+ color: white;
+ font-size: 11px;
+ font-weight: 700;
+ padding: 6px 16px;
+ border-radius: 20px;
+ letter-spacing: 0.3px;
+ margin-bottom: 16px;
+ position: relative;
+ }
+
+ /* ── SIGNATURE ── */
+ .lili-sig {
+ background: white;
+ border: 1px solid var(--border);
+ border-radius: 16px;
+ padding: 24px;
+ text-align: center;
+ margin-bottom: 20px;
+ }
+
+ .lili-sig p {
+ font-family: 'Cormorant Garamond', serif;
+ font-style: italic;
+ font-size: 17px;
+ line-height: 1.9;
+ color: var(--noir);
+ }
+
+ /* ── FOOTER ── */
+ .footer-legal {
+ background: white;
+ border: 1px solid var(--border);
+ border-radius: 16px;
+ padding: 18px 22px;
+ text-align: center;
+ margin-top: 20px;
+ }
+
+ .footer-legal .brand-f {
+ font-family: 'Playfair Display', serif;
+ font-size: 17px;
+ color: var(--violet);
+ margin-bottom: 10px;
+ }
+
+ .footer-legal-info {
+ font-size: 11px;
+ color: var(--muted);
+ line-height: 2;
+ margin-bottom: 12px;
+ }
+
+ .footer-social {
+ display: flex;
+ gap: 8px;
+ justify-content: center;
+ margin-bottom: 10px;
+ }
+
+ .social-btn {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ padding: 7px 16px;
+ border-radius: 50px;
+ font-size: 11px;
+ font-weight: 600;
+ text-decoration: none;
+ transition: all 0.2s;
+ border: 1px solid var(--border);
+ color: var(--violet);
+ background: rgba(155,89,182,0.06);
+ }
+
+ .social-btn:hover { background: var(--violet); color: white; }
+
+ .footer-copy {
+ font-size: 10px;
+ color: rgba(138,122,138,0.6);
+ line-height: 1.6;
+ }
+
+ /* ── SÉPARATEUR ── */
+ .sep {
+ border: none;
+ border-top: 1px solid var(--border);
+ margin: 32px 0;
+ }
+
+ /* ── CITATION ── */
+ .citation {
+ font-family: 'Cormorant Garamond', serif;
+ font-style: italic;
+ font-size: 17px;
+ color: var(--muted);
+ text-align: center;
+ line-height: 1.8;
+ padding: 0 12px;
+ }
+
+ /* ── MOBILE ── */
+ @media(max-width:480px) {
+ .traits-grid { grid-template-columns: 1fr; }
+ .intro-stats { gap: 12px; }
+ .stat-item { min-width: 90px; }
+ }
+</style>
+</head>
+<body>
+
+<!-- ── BANDEAU ÉVÉNEMENTS ── -->
+<div class="events-ticker">
+ <div class="ticker-track" id="tickerTrack">
+    <a href="https://ypl.me/Pya" target="_blank" class="ticker-item">
+      <span class="ticker-dot"></span>
+      🍽️ Dîner entre Inconnus · La Baule · Jeudi 19 mars
+      <span class="ticker-price">Réserver →</span>
+    </a>
+    <a href="https://ypl.me/PUR" target="_blank" class="ticker-item">
+      <span class="ticker-dot"></span>
+      🤍 Salon de la Rencontre · 06/06/2026 · Vannes
+      <span class="ticker-price">Early bird →</span>
+    </a>
+    <!-- Duplication pour loop -->
+    <a href="https://ypl.me/Pya" target="_blank" class="ticker-item">
+      <span class="ticker-dot"></span>
+      🍽️ Dîner entre Inconnus · La Baule · Jeudi 19 mars
+      <span class="ticker-price">Réserver →</span>
+    </a>
+    <a href="https://ypl.me/PUR" target="_blank" class="ticker-item">
+      <span class="ticker-dot"></span>
+      🤍 Salon de la Rencontre · 06/06/2026 · Vannes
+      <span class="ticker-price">Early bird →</span>
+    </a>
+  </div></div>
+
+<div class="wrapper">
+
+<!-- ══════════════════════════════════════
+ ÉCRAN 1 INTRO
+══════════════════════════════════════ -->
+<div class="screen active" id="s-intro">
+
+ <div class="brand-header">
+ <svg class="brand-heart" width="64" height="58" viewBox="0 0 100 90">
+ <path d="M50 85C50 85 5 55 5 28C5 14 16 5 28 5C36 5 44 9 50 16C56 9 64 5 72 5C84 5 95 14 95 28C95 55 50 85 50 85Z"
+ fill="url(#hg)" stroke="rgba(233,30,140,0.2)" stroke-width="1"/>
+ <defs>
+ <linearGradient id="hg" x1="0%" y1="0%" x2="100%" y2="100%">
+ <stop offset="0%" stop-color="#9B59B6"/>
+ <stop offset="100%" stop-color="#E91E8C"/>
+ </linearGradient>
+ </defs>
+ </svg>
+ <div class="brand-name">Lili Karantez</div>
+ <div class="brand-sub">Les Cœurs Solitaires</div>
+ </div>
+
+ <div class="intro-eyebrow">Questionnaire de personnalité amoureuse</div>
+
+ <h1 class="intro-title">
+ Mon Profil<br><em>Amoureux</em>
+ </h1>
+
+ <p class="intro-tagline">
+ Découvrez qui vous êtes vraiment<br>en amour, et qui vous attendez vraiment.
+ </p>
+
+ <p class="intro-body">
+ Ce questionnaire explore votre personnalité profonde, vos attentes, vos valeurs et votre vision de l'amour. Répondez instinctivement, comme vous êtes pas comme vous voudriez être.
+ <br><br>
+ Vos réponses permettront à Lili de mieux vous connaître pour vous proposer des rencontres qui ont du sens.
+ </p>
+
+ <div class="intro-stats">
+ <div class="stat-item">
+ <div class="stat-num">6</div>
+ <div class="stat-label">Profils possibles</div>
+ </div>
+ <div class="stat-item">
+ <div class="stat-num">18</div>
+ <div class="stat-label">Questions</div>
+ </div>
+ <div class="stat-item">
+ <div class="stat-num">5'</div>
+ <div class="stat-label">Environ</div>
+ </div>
+ </div>
+
+ <button class="btn-primary" onclick="showScreen('s-presentation')">
+ Commencer mon profil 🤍
+ </button>
+
+ <div class="legal-box" style="margin-top:28px;">
+ <div class="legal-box-title">Contact &amp; mentions légales</div>
+ 📍 Centre des Affaires Lorient La Base 1 rue Étienne d'Orves, 56100 Lorient<br>
+ ✉️ lilikarantez@gmail.com &nbsp;·&nbsp; SIRET : 40149331700069
+ </div>
+
+ <hr class="sep">
+ <p class="citation">
+ « Ce n'est pas un filtre. C'est un outil. »<br>
+ <span style="font-size:13px;color:var(--violet);font-style:normal;font-weight:500;">Lili Karantez</span>
+ </p>
+</div>
+
+
+<!-- ══════════════════════════════════════
+ ÉCRAN 2 PRÉSENTATION LILI
+══════════════════════════════════════ -->
+<div class="screen" id="s-presentation">
+ <div style="text-align:center;padding:16px 0 28px;">
+
+ <svg style="display:block;margin:0 auto 14px;" width="56" height="50" viewBox="0 0 100 90">
+ <path d="M50 85C50 85 5 55 5 28C5 14 16 5 28 5C36 5 44 9 50 16C56 9 64 5 72 5C84 5 95 14 95 28C95 55 50 85 50 85Z" fill="url(#hg2)" stroke="rgba(233,30,140,0.15)" stroke-width="1"/>
+ <defs><linearGradient id="hg2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#9B59B6"/><stop offset="100%" stop-color="#E91E8C"/></linearGradient></defs>
+ </svg>
+
+ <h1 style="font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,36px);font-weight:700;color:var(--noir);margin-bottom:4px;">Lili Karantez</h1>
+ <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;color:var(--violet);margin-bottom:28px;">Auteure · Éditrice · Créatrice d'expériences relationnelles</p>
+
+ <div class="box" style="text-align:left;margin-bottom:14px;">
+ <p style="margin-bottom:14px;">Je suis Lili Karantez et je crois profondément que la rencontre mérite un cadre, une intention et une mise en scène subtile.</p>
+ <p style="margin-bottom:14px;">Fondatrice des <strong style="color:var(--violet);">Cœurs Solitaires</strong>, j'organise des dîners entre inconnus et des soirées rencontres pour célibataires dans le Grand Ouest conçus pour favoriser des échanges authentiques, loin des algorithmes.</p>
+ <p><strong style="color:var(--fuchsia);">Mon moteur ?</strong> Remettre du sens, de la profondeur et de l'audace dans les relations humaines.</p>
+ </div>
+
+ <div style="background:rgba(155,89,182,0.06);border:1px solid var(--border);border-radius:14px;padding:20px 22px;text-align:left;margin-bottom:14px;">
+ <p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--violet);font-weight:600;margin-bottom:10px;">🎯 À quoi sert ce questionnaire ?</p>
+ <p style="font-size:13px;line-height:1.85;color:var(--muted);">
+ Ce questionnaire a une <strong style="color:var(--noir);">double finalité</strong> :<br><br>
+ <strong style="color:var(--noir);">1. Mieux vous connaître</strong> votre profil amoureux profond, vos compatibilités naturelles, ce qui vous rend unique en relation.<br><br>
+ <strong style="color:var(--noir);">2. Préparer votre soirée</strong> vos réponses permettent à Lili de vous placer selon vos vraies affinités lors des événements.
+ </p>
+ </div>
+
+ <div style="background:rgba(233,30,140,0.05);border:1px solid rgba(233,30,140,0.15);border-radius:14px;padding:18px 22px;font-size:12px;line-height:1.75;color:var(--muted);text-align:left;margin-bottom:24px;">
+ <p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--fuchsia);font-weight:600;margin-bottom:8px;">⚠️ Propriété intellectuelle &amp; mentions légales</p>
+ Ce questionnaire est une <strong style="color:var(--noir);">œuvre originale protégée</strong> créée par <strong style="color:var(--noir);">Lili Karantez Cœurs Solitaires</strong> (SIRET : 40149331700069). Toute reproduction sans autorisation écrite est interdite.<br><br>
+ Participation à nos événements implique l'acceptation de nos conditions générales : lilikarantez@gmail.com
+ </div>
+
+ <button class="btn-primary" onclick="startQuiz();">
+ Commencer le questionnaire 🤍
+ </button>
+ <p style="font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;">© 2026 Lili Karantez · Tous droits réservés</p>
+ </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+ ÉCRAN 4 QUIZ PERSONNALITÉ
+══════════════════════════════════════ -->
+<div class="screen" id="s-quiz">
+ <div class="prog-wrap">
+ <div class="prog-top">
+ <span class="prog-label" id="quiz-label">Personnalité</span>
+ <span class="prog-count" id="quiz-count">1 / 18</span>
+ </div>
+ <div class="prog-bar"><div class="prog-fill" id="quiz-fill" style="width:0%"></div></div>
+ </div>
+ <div class="cat-tag" id="quiz-cat">Personnalité</div>
+ <div class="q-text" id="quiz-q"></div>
+ <div class="opts" id="quiz-opts"></div>
+ <div class="q-nav">
+ <button class="btn-back" onclick="backQuiz()">← Retour</button>
+ <button class="btn-next-q" id="quiz-next-btn" onclick="nextQuiz()">Continuer →</button>
+ </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+ ÉCRAN 5 CAPTURE EMAIL
+══════════════════════════════════════ -->
+<div class="screen" id="s-capture">
+ <div class="capture-wrap">
+ <svg style="display:block;margin:0 auto 18px;" width="56" height="50" viewBox="0 0 100 90">
+ <path d="M50 85C50 85 5 55 5 28C5 14 16 5 28 5C36 5 44 9 50 16C56 9 64 5 72 5C84 5 95 14 95 28C95 55 50 85 50 85Z" fill="url(#hg3)"/>
+ <defs><linearGradient id="hg3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#9B59B6"/><stop offset="100%" stop-color="#E91E8C"/></linearGradient></defs>
+ </svg>
+
+ <h1 class="capture-title">
+ Votre profil est prêt<br><em>une dernière étape</em>
+ </h1>
+ <p class="capture-sub">
+ Entrez votre prénom et votre email pour révéler votre profil amoureux complet.
+ </p>
+
+ <div class="form-group">
+ <input id="inp-prenom" type="text" class="field-input" placeholder="Votre prénom *">
+ <input id="inp-email" type="email" class="field-input" placeholder="Votre email *">
+ <div class="error-msg" id="cap-error">Merci de remplir prénom et email.</div>
+
+ <label class="rgpd-label">
+ <input type="checkbox" id="inp-rgpd">
+ <span class="rgpd-text">✅ J'accepte que mes données soient collectées par <strong>Lili Karantez Cœurs Solitaires</strong>. Conformément au <strong>RGPD</strong>, droit d'accès et suppression : lilikarantez@gmail.com. Données conservées 1 an max, jamais transmises à des tiers.</span>
+ </label>
+ <div class="error-msg" id="rgpd-error">Merci d'accepter la politique de confidentialité.</div>
+
+ <label class="rgpd-label">
+ <input type="checkbox" id="inp-relation">
+ <span class="rgpd-text">💜 J'accepte d'éventuelles mises en relation personnalisées par Lili Karantez.</span>
+ </label>
+
+ <label class="rgpd-label">
+ <input type="checkbox" id="inp-newsletter">
+ <span class="rgpd-text">📩 Je souhaite recevoir la newsletter des Cœurs Solitaires et les invitations aux événements.</span>
+ </label>
+ </div>
+
+ <button class="btn-primary" onclick="submitCapture()">
+ Révéler mon profil amoureux 🤍
+ </button>
+ <p style="font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;">Aucun spam. Vos données restent confidentielles.</p>
+ </div>
+</div>
+
+
+
+<!-- ══════════════════════════════════════
+ ÉCRAN 7 RÉSULTAT
+══════════════════════════════════════ -->
+<div class="screen" id="s-result"></div>
+
+</div><!-- end .wrapper -->
+
+<script>
+// Profil questions supprimées (version Loire-Atlantique)
+var PROFIL = [];
+
+// ══════════════════════════════════════
+// QUESTIONS QUIZ PERSONNALITÉ (6 profils)
+// ══════════════════════════════════════
+var QS = [
+ {cat:"Motivation",q:"Ce qui vous pousse à agir au fond de vous, c'est avant tout…",o:[
+ {p:"fonds",tx:"L'intensité vivre les choses pleinement, tout ou rien."},
+ {p:"jardin",tx:"Prendre soin être utile, présent·e, construire avec patience."},
+ {p:"etoiles",tx:"Chercher le sens profond aller là où les autres n'osent pas."},
+ {p:"etincelle",tx:"L'élan spontané saisir l'instant, créer la surprise."},
+ {p:"racines",tx:"La stabilité construire quelque chose de solide et de durable."},
+ {p:"metamorphose",tx:"La renaissance je me transforme, j'avance, je me réinvente."}
+ ]},
+ {cat:"Motivation",q:"Dans votre vie quotidienne, vous cherchez surtout à…",o:[
+ {p:"fonds",tx:"Aimer et être aimé·e avec une intensité absolue."},
+ {p:"jardin",tx:"Créer de la douceur autour de moi et nourrir ce qui pousse."},
+ {p:"etoiles",tx:"Comprendre le monde et trouver ma place singulière en lui."},
+ {p:"etincelle",tx:"Multiplier les connexions, les rires, les moments mémorables."},
+ {p:"racines",tx:"Avancer sereinement vers ce que j'ai décidé de construire."},
+ {p:"metamorphose",tx:"Évoluer, dépasser mes anciennes limites, être fier·e du chemin."}
+ ]},
+ {cat:"Peurs",q:"Ce que vous redoutez le plus profondément dans l'amour…",o:[
+ {p:"fonds",tx:"Ne pas être vraiment vu·e dans ma profondeur et ma complexité."},
+ {p:"jardin",tx:"Donner sans jamais recevoir m'oublier entièrement pour l'autre."},
+ {p:"etoiles",tx:"Être ordinaire, interchangeable, sans éclat particulier."},
+ {p:"etincelle",tx:"Être enfermé·e dans une relation étouffante, sans liberté."},
+ {p:"racines",tx:"L'instabilité, l'imprévisibilité, ne plus pouvoir compter sur l'autre."},
+ {p:"metamorphose",tx:"Rester bloqué·e dans une version de moi-même dépassée."}
+ ]},
+ {cat:"Peurs",q:"Sous pression, vous avez tendance à…",o:[
+ {p:"fonds",tx:"M'enfermer dans mon intensité et amplifier ce que je ressens."},
+ {p:"jardin",tx:"Me sacrifier encore plus pour éviter le conflit."},
+ {p:"etoiles",tx:"Me retirer dans mon monde intérieur pour analyser seul·e."},
+ {p:"etincelle",tx:"Me disperser, fuir dans l'action pour ne pas ressentir."},
+ {p:"racines",tx:"M'accrocher encore plus fort à ce qui me semble stable."},
+ {p:"metamorphose",tx:"Tout remettre en question parfois trop radicalement."}
+ ]},
+ {cat:"Relations",q:"Dans une relation proche, ce que vous offrez naturellement…",o:[
+ {p:"fonds",tx:"Une écoute rare, une présence totale, une profondeur émotionnelle."},
+ {p:"jardin",tx:"De la constance, de la tendresse et le soin de chaque détail."},
+ {p:"etoiles",tx:"Des questions profondes, une vision unique, une loyauté sincère."},
+ {p:"etincelle",tx:"De la légèreté, de la créativité et une énergie qui réveille."},
+ {p:"racines",tx:"De la stabilité, de la fiabilité et un engagement concret."},
+ {p:"metamorphose",tx:"De l'élan, de l'inspiration et un regard neuf sur les choses."}
+ ]},
+ {cat:"Relations",q:"Ce dont vous avez besoin pour vous sentir en sécurité dans une relation…",o:[
+ {p:"fonds",tx:"Être vraiment vu·e pas juste la surface, mais la profondeur."},
+ {p:"jardin",tx:"Sentir que ce que je donne est reçu et apprécié sincèrement."},
+ {p:"etoiles",tx:"Que l'autre respecte ma singularité et mon espace intérieur."},
+ {p:"etincelle",tx:"Que la relation reste vivante, légère et pleine de surprises."},
+ {p:"racines",tx:"Une relation fiable, claire, où je peux compter sur l'autre."},
+ {p:"metamorphose",tx:"Que l'autre croit en mon évolution et l'accompagne."}
+ ]},
+ {cat:"Relations",q:"Votre façon de gérer un conflit important…",o:[
+ {p:"fonds",tx:"Je le vis intensément et j'ai besoin de temps pour digérer."},
+ {p:"jardin",tx:"Je cherche à préserver la relation, souvent avant mes propres besoins."},
+ {p:"etoiles",tx:"Je prends du recul, j'analyse avant d'agir."},
+ {p:"etincelle",tx:"J'essaie de le dépasser rapidement pour retrouver la légèreté."},
+ {p:"racines",tx:"Je cherche une solution concrète et stable pour avancer."},
+ {p:"metamorphose",tx:"Je vois le conflit comme une opportunité de transformation."}
+ ]},
+ {cat:"Vision",q:"Votre vision du monde est fondamentalement…",o:[
+ {p:"fonds",tx:"Le monde est souvent superficiel je cherche la profondeur."},
+ {p:"jardin",tx:"Le monde a besoin de plus de douceur et de connexion humaine."},
+ {p:"etoiles",tx:"Le monde est complexe et mérite d'être compris avant d'être jugé."},
+ {p:"etincelle",tx:"Le monde est plein de possibilités il faut juste les saisir."},
+ {p:"racines",tx:"Le monde est plus beau quand on construit avec soin et intention."},
+ {p:"metamorphose",tx:"Le monde change et ceux qui évoluent s'y épanouissent."}
+ ]},
+ {cat:"Vision",q:"Pour vous, la liberté c'est avant tout…",o:[
+ {p:"fonds",tx:"Être fidèle à moi-même, sans me trahir pour plaire aux autres."},
+ {p:"jardin",tx:"Donner librement, sans obligation ni calcul."},
+ {p:"etoiles",tx:"Penser par moi-même, explorer ma singularité."},
+ {p:"etincelle",tx:"Pouvoir aller où je veux, quand je veux, sans contrainte."},
+ {p:"racines",tx:"Avoir un cadre stable dans lequel je peux m'épanouir pleinement."},
+ {p:"metamorphose",tx:"Me réinventer sans permission être l'auteur·e de ma vie."}
+ ]},
+ {cat:"Caractère",q:"Ce que les gens qui vous connaissent bien diraient de vous…",o:[
+ {p:"fonds",tx:"Profond·e, intensif·ve, parfois trop dans sa tête ou mélancolique."},
+ {p:"jardin",tx:"Généreux·se, attentionné·e, parfois trop présent·e."},
+ {p:"etoiles",tx:"Intelligent·e, discret·e, parfois difficile à cerner."},
+ {p:"etincelle",tx:"Drôle, enthousiaste, parfois trop dispersé·e."},
+ {p:"racines",tx:"Solide, fiable, parfois trop prudent·e ou rigide."},
+ {p:"metamorphose",tx:"Courageux·se, inspirant·e, parfois imprévisible."}
+ ]},
+ {cat:"Caractère",q:"Comment vous définiriez-vous en une seule phrase ?",o:[
+ {p:"fonds",tx:"Je suis quelqu'un·e qui ressent le monde plus intensément que les autres."},
+ {p:"jardin",tx:"Je suis quelqu'un·e qui prend soin des autres avec sincérité."},
+ {p:"etoiles",tx:"Je suis quelqu'un·e d'unique qui cherche le sens profond des choses."},
+ {p:"etincelle",tx:"Je suis quelqu'un·e qui aime la vie et s'y jette avec enthousiasme."},
+ {p:"racines",tx:"Je suis quelqu'un·e sur qui on peut compter, qui construit avec soin."},
+ {p:"metamorphose",tx:"Je suis quelqu'un·e en chemin, qui se réinvente et avance."}
+ ]},
+ {cat:"Valeurs",q:"La valeur qui guide votre vie plus que toute autre…",o:[
+ {p:"fonds",tx:"L'authenticité être vrai·e, même si c'est inconfortable."},
+ {p:"jardin",tx:"L'amour donner et recevoir de la connexion authentique."},
+ {p:"etoiles",tx:"La connaissance comprendre le monde pour mieux y évoluer."},
+ {p:"etincelle",tx:"La liberté vivre sans contrainte et explorer tous les possibles."},
+ {p:"racines",tx:"La loyauté rester fidèle à ses engagements et à ses proches."},
+ {p:"metamorphose",tx:"Le courage oser changer, oser commencer, oser être soi."}
+ ]},
+ {cat:"Valeurs",q:"Ce que vous ne pourriez jamais accepter chez un·e partenaire…",o:[
+ {p:"fonds",tx:"La superficialité et le manque d'empathie profonde."},
+ {p:"jardin",tx:"L'ingratitude et l'indifférence à ce qu'on donne."},
+ {p:"etoiles",tx:"L'intrusion dans mon espace et le manque de respect de ma singularité."},
+ {p:"etincelle",tx:"La jalousie maladive et le contrôle excessif."},
+ {p:"racines",tx:"L'incohérence, le manque de fiabilité et les promesses non tenues."},
+ {p:"metamorphose",tx:"Quelqu'un qui veut me figer dans une version de moi-même dépassée."}
+ ]},
+ {cat:"Amour",q:"Votre idéal de relation amoureuse…",o:[
+ {p:"fonds",tx:"Profonde et intense où l'on se comprend vraiment, sans filtre."},
+ {p:"jardin",tx:"Tendre et fidèle où l'on prend soin l'un·e de l'autre avec constance."},
+ {p:"etoiles",tx:"Singulière et respectueuse où chacun·e garde son espace et sa richesse."},
+ {p:"etincelle",tx:"Légère et joyeuse pleine d'aventures et de complicité."},
+ {p:"racines",tx:"Stable et engagée une vraie construction commune dans la durée."},
+ {p:"metamorphose",tx:"Évolutive et inspirante qui nous fait grandir ensemble."}
+ ]},
+ {cat:"Amour",q:"Ce qui vous ferait vous sentir pleinement épanoui·e dans une relation…",o:[
+ {p:"fonds",tx:"Être vraiment vu·e, compris·e et accepté·e dans toute ma complexité."},
+ {p:"jardin",tx:"Me sentir aimé·e, apprécié·e et précieux·se pour l'autre."},
+ {p:"etoiles",tx:"Avoir un·e partenaire qui stimule mon intelligence et respecte ma profondeur."},
+ {p:"etincelle",tx:"Vivre une relation riche en expériences, en rires et en liberté."},
+ {p:"racines",tx:"Construire quelque chose de solide ensemble, dans la confiance totale."},
+ {p:"metamorphose",tx:"Être avec quelqu'un·e qui croit en qui je deviens."}
+ ]},
+ {cat:"Résilience",q:"Face à une grande épreuve, votre ressource intérieure principale…",o:[
+ {p:"fonds",tx:"Ma capacité à donner du sens à la douleur et à en tirer quelque chose."},
+ {p:"jardin",tx:"Mon empathie et ma capacité à m'appuyer sur mes proches."},
+ {p:"etoiles",tx:"Mon calme intérieur et ma capacité à analyser la situation."},
+ {p:"etincelle",tx:"Mon optimisme et ma capacité à trouver le positif en toute situation."},
+ {p:"racines",tx:"Ma discipline et ma capacité à structurer malgré le chaos."},
+ {p:"metamorphose",tx:"Ma résilience profonde je renais plus fort·e de chaque épreuve."}
+ ]},
+ {cat:"Quotidien",q:"Votre façon de prendre les grandes décisions de votre vie…",o:[
+ {p:"fonds",tx:"Je suis mon intuition et ce qui résonne profondément en moi."},
+ {p:"jardin",tx:"Je pense d'abord à l'impact sur les personnes que j'aime."},
+ {p:"etoiles",tx:"J'analyse toutes les données et prends le temps qu'il faut."},
+ {p:"etincelle",tx:"Je suis mon enthousiasme et fais confiance à l'avenir."},
+ {p:"racines",tx:"Je pèse le pour et le contre selon mes valeurs et mes projets."},
+ {p:"metamorphose",tx:"Je me demande ce que me dirait la version de moi que je veux devenir."}
+ ]},
+ {cat:"Quotidien",q:"Ce qui vous ressource le plus quand vous êtes épuisé·e…",o:[
+ {p:"fonds",tx:"Être seul·e avec moi-même, écouter de la musique ou créer."},
+ {p:"jardin",tx:"Être entouré·e de personnes que j'aime et qui m'apprécient."},
+ {p:"etoiles",tx:"Lire, penser, avoir du temps seul·e pour me retrouver."},
+ {p:"etincelle",tx:"Planifier quelque chose d'excitant, me plonger dans une nouvelle aventure."},
+ {p:"racines",tx:"Me reposer dans la nature, loin de toute agitation."},
+ {p:"metamorphose",tx:"Entreprendre quelque chose de nouveau créer, commencer, oser."}
+ ]}
+];
+
+// ══════════════════════════════════════
+// 6 PROFILS AMOUREUX
+// ══════════════════════════════════════
+var PROFILS = {
+ fonds: {
+ emoji:"🌊", name:"Le·La Passionné·e des Grands Fonds", sub:"Intense, entier·e, tout ou rien.", desc:"Vous vivez l'amour avec une profondeur que peu de personnes comprennent vraiment. Vous ne cherchez pas une relation confortable vous cherchez une rencontre qui vous transforme. Votre intensité est un cadeau rare qui demande un·e partenaire capable de plonger avec vous.", traits:[
+ {icon:"🌊",label:"Force",val:"Profondeur émotionnelle, authenticité absolue, présence totale"},
+ {icon:"🌀",label:"Point de vigilance",val:"L'intensité peut parfois effrayer avant qu'on vous connaisse vraiment"},
+ {icon:"🔥",label:"Moteur intérieur",val:"Être vraiment vu·e et compris·e dans toute votre complexité"},
+ {icon:"🌿",label:"Ce dont vous avez besoin",val:"Un·e partenaire capable de profondeur et d'authenticité"}
+ ], apport:"Vous posez les vraies questions. Là où la conversation reste en surface, vous l'emmenez naturellement vers quelque chose de plus riche et de plus vrai.", compats:[
+ {emoji:"⭐",name:"Le·La Chercheur·se d'Étoiles",why:"Une profondeur partagée deux esprits qui vont là où les autres n'osent pas.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🌸",name:"Le·La Jardinier·e du Cœur",why:"Sa douceur accueille votre intensité sans la réduire.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🦋",name:"La Métamorphose",why:"Votre profondeur touche quelque chose qu'il·elle cherche à comprendre.",badge:"badge-med",label:"Compatible"},
+ {emoji:"🔥",name:"L'Étincelle",why:"Son énergie vous sort de votre mélancolie une belle complémentarité.",badge:"badge-comp",label:"Complémentaire"}
+ ], conseil:"Vous méritez quelqu'un·e qui ne recule pas devant votre intensité. Au Grand Rendez-Vous, laissez-vous surprendre par ceux·celles qui restent présents quand vous allez en profondeur."
+ }, jardin: {
+ emoji:"🌸", name:"Le·La Jardinier·e du Cœur", sub:"Patient·e, doux·ce, fidèle dans la durée.", desc:"Vous avez une antenne naturelle pour ce dont les autres ont besoin. Votre générosité n'est pas un calcul c'est votre façon d'être au monde. Vous construisez l'amour comme un jardin : avec soin, patience et une attention à chaque détail.", traits:[
+ {icon:"🌸",label:"Force",val:"Générosité profonde, constance, capacité à créer un foyer émotionnel"},
+ {icon:"🌀",label:"Point de vigilance",val:"S'oublier au profit de l'autre apprendre à recevoir autant qu'à donner"},
+ {icon:"🔥",label:"Moteur intérieur",val:"Sentir que ce que vous donnez est reçu et précieux pour l'autre"},
+ {icon:"🌿",label:"Ce dont vous avez besoin",val:"Un·e partenaire qui vous voit et vous chérit avec la même attention"}
+ ], apport:"Vous créez le lien là où il n'existe pas encore. Votre chaleur sincère ouvre des conversations et des espaces de confiance.", compats:[
+ {emoji:"🌊",name:"Le·La Passionné·e des Grands Fonds",why:"Sa profondeur vous fascine vous lui offrez la douceur dont il·elle a besoin.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🌿",name:"Le·La Enraciné·e",why:"Une sécurité partagée ensemble vous construisez quelque chose de solide.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"⭐",name:"Le·La Chercheur·se d'Étoiles",why:"Sa singularité vous fascine et vous l'accueillez avec bienveillance.",badge:"badge-med",label:"Compatible"},
+ {emoji:"🔥",name:"L'Étincelle",why:"Son énergie vous tire vers le mouvement une belle complémentarité.",badge:"badge-comp",label:"Complémentaire"}
+ ], conseil:"Vous méritez quelqu'un·e qui remarque tout ce que vous faites. Osez exprimer vos besoins les personnes qui vous conviennent savent recevoir autant que vous savez donner."
+ }, etoiles: {
+ emoji:"⭐", name:"Le·La Chercheur·se d'Étoiles", sub:"Profond·e, idéaliste, en quête de l'essentiel.", desc:"Vous ne cherchez pas une relation ordinaire. Vous cherchez quelqu'un·e avec qui les conversations durent des heures, qui vous comprend sans que vous ayez à tout expliquer. Rare, exigeant·e avec raison vous offrez une profondeur que peu de personnes sont capables de donner.", traits:[
+ {icon:"⭐",label:"Force",val:"Intelligence profonde, loyauté absolue, regard unique sur le monde"},
+ {icon:"🌀",label:"Point de vigilance",val:"L'idéal parfait peut faire rater des personnes vraies et imparfaites"},
+ {icon:"🔥",label:"Moteur intérieur",val:"Trouver quelqu'un·e avec qui aller au fond des choses"},
+ {icon:"🌿",label:"Ce dont vous avez besoin",val:"Un·e partenaire qui respecte votre espace et stimule votre esprit"}
+ ], apport:"Vous apportez la perspective que personne d'autre n'a eue. Vos questions ouvrent des espaces nouveaux dans les conversations.", compats:[
+ {emoji:"🌊",name:"Le·La Passionné·e des Grands Fonds",why:"Deux esprits profonds une complicité rare et précieuse.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🦋",name:"La Métamorphose",why:"Son chemin vous inspire vous lui offrez l'ancrage dont il·elle a besoin.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🌸",name:"Le·La Jardinier·e du Cœur",why:"Sa douceur vous accueille sans vous brusquer.",badge:"badge-med",label:"Compatible"},
+ {emoji:"🌿",name:"Le·La Enraciné·e",why:"Sa stabilité est un contrepoids naturel à votre profondeur.",badge:"badge-comp",label:"Complémentaire"}
+ ], conseil:"Vous n'avez pas besoin de vous rendre plus accessible vous avez besoin de trouver les bonnes personnes. Laissez-leur le temps de vous découvrir."
+ }, etincelle: {
+ emoji:"🔥", name:"L'Étincelle", sub:"Spontané·e, lumineux·se, inattendu·e.", desc:"Vous avez une capacité rare à trouver la joie dans presque tout. Votre enthousiasme est sincère et contagieux il donne aux autres la permission de s'amuser, de rire, d'exister pleinement. Vous apportez la lumière dans une pièce sans même le chercher.", traits:[
+ {icon:"🔥",label:"Force",val:"Créativité, optimisme contagieux, capacité à connecter instantanément"},
+ {icon:"🌀",label:"Point de vigilance",val:"Fuir l'inconfort accepter que la profondeur nécessite de rester en place"},
+ {icon:"🔥",label:"Moteur intérieur",val:"Vivre intensément et partager des moments qui comptent vraiment"},
+ {icon:"🌿",label:"Ce dont vous avez besoin",val:"Un·e partenaire qui vous ancre sans vous éteindre"}
+ ], apport:"Vous apportez la légèreté et l'élan. Vos idées et votre énergie transforment une soirée ordinaire en quelque chose de mémorable.", compats:[
+ {emoji:"🌿",name:"Le·La Enraciné·e",why:"Sa stabilité ancre votre énergie ensemble vous vous complétez parfaitement.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🦋",name:"La Métamorphose",why:"Deux énergies en mouvement une relation riche en surprises.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🌸",name:"Le·La Jardinier·e du Cœur",why:"Sa chaleur et votre légèreté créent une belle dynamique.",badge:"badge-med",label:"Compatible"},
+ {emoji:"⭐",name:"Le·La Chercheur·se d'Étoiles",why:"Si vous ralentissez, vous trouverez en lui·elle une profondeur qui vous manque.",badge:"badge-comp",label:"Complémentaire"}
+ ], conseil:"Vous méritez quelqu'un·e qui s'illumine à votre contact mais qui vous invite aussi à aller plus loin. La profondeur et la légèreté ne sont pas opposées."
+ }, racines: {
+ emoji:"🌿", name:"Le·La Enraciné·e", sub:"Stable, rassurant·e, solide comme un chêne.", desc:"Vous construisez tout ce que vous touchez avec intention et constance. En amour comme dans la vie, vous cherchez quelque chose de vrai et de durable. Votre fiabilité est un cadeau rare les personnes qui vous connaissent savent qu'elles peuvent compter sur vous.", traits:[
+ {icon:"🌿",label:"Force",val:"Fiabilité absolue, engagement concret, ancrage profond"},
+ {icon:"🌀",label:"Point de vigilance",val:"La prudence peut parfois ralentir des élans qui mériteraient d'être suivis"},
+ {icon:"🔥",label:"Moteur intérieur",val:"Construire quelque chose de solide et de vrai avec la bonne personne"},
+ {icon:"🌿",label:"Ce dont vous avez besoin",val:"Un·e partenaire cohérent·e entre ses paroles et ses actes"}
+ ], apport:"Vous êtes le sol fertile. Là où les autres s'agitent, vous apportez la sécurité et l'espace pour que les choses grandissent.", compats:[
+ {emoji:"🔥",name:"L'Étincelle",why:"Son énergie vous tire vers le mouvement vous lui offrez l'ancrage qu'il·elle cherche.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🌸",name:"Le·La Jardinier·e du Cœur",why:"Deux bâtisseurs ensemble vous construisez quelque chose de beau et de durable.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🦋",name:"La Métamorphose",why:"Votre stabilité est un point d'appui précieux pour son chemin.",badge:"badge-med",label:"Compatible"},
+ {emoji:"⭐",name:"Le·La Chercheur·se d'Étoiles",why:"Sa profondeur vous enrichit votre stabilité l'ancre.",badge:"badge-comp",label:"Complémentaire"}
+ ], conseil:"Vous méritez quelqu'un·e d'aussi fiable que vous. Osez vous laisser surprendre certaines personnes ont juste besoin d'un peu de temps pour vous montrer ce qu'elles valent."
+ }, metamorphose: {
+ emoji:"🦋", name:"La Métamorphose", sub:"En renaissance, singulier·e, prêt·e à tout recommencer.", desc:"Vous portez en vous quelque chose que peu de personnes ont : le courage de vous réinventer. Cette période de votre vie est une transformation et vous êtes prêt·e à accueillir quelqu'un·e qui voit en vous non pas qui vous étiez, mais qui vous devenez.", traits:[
+ {icon:"🦋",label:"Force",val:"Résilience profonde, ouverture au changement, vision de l'avenir"},
+ {icon:"🌀",label:"Point de vigilance",val:"Prendre le temps de se poser avant de s'engager dans quelque chose de nouveau"},
+ {icon:"🔥",label:"Moteur intérieur",val:"Être vu·e pour ce que vous devenez, pas pour ce que vous étiez"},
+ {icon:"🌿",label:"Ce dont vous avez besoin",val:"Un·e partenaire qui croit en votre chemin et l'accompagne sans le diriger"}
+ ], apport:"Vous apportez une perspective nouvelle sur la vie. Votre capacité à recommencer inspire ceux·celles qui ont peur de le faire.", compats:[
+ {emoji:"⭐",name:"Le·La Chercheur·se d'Étoiles",why:"Sa profondeur vous ancre vous lui apportez l'élan dont il·elle a besoin.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🔥",name:"L'Étincelle",why:"Deux énergies en mouvement une relation vivante et inspirante.",badge:"badge-high",label:"Très compatible"},
+ {emoji:"🌿",name:"Le·La Enraciné·e",why:"Sa stabilité est un point d'appui précieux dans votre transformation.",badge:"badge-med",label:"Compatible"},
+ {emoji:"🌊",name:"Le·La Passionné·e des Grands Fonds",why:"Sa profondeur touche quelque chose d'essentiel en vous.",badge:"badge-comp",label:"Complémentaire"}
+ ], conseil:"Votre renaissance est une force, pas une fragilité. Les personnes qui vous conviennent le voient immédiatement et s'en trouvent inspirées."
+ }
+};
+
+// ══════════════════════════════════════
+// ÉTAT GLOBAL
+// ══════════════════════════════════════
+var profilCur = -1;
+var quizCur = 0;
+var quizSel = null;
+var quizScores = {fonds:0, jardin:0, etoiles:0, etincelle:0, racines:0, metamorphose:0};
+var profilData = {};
+var userPrenom = '';
+
+// ══════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════
+function showScreen(id) {
+ document.querySelectorAll('.screen').forEach(function(s){
+ s.classList.remove('active');
+ s.style.display = 'none';
+ });
+ var el = document.getElementById(id);
+ if(!el) return;
+ el.style.display = 'block';
+ setTimeout(function(){ el.classList.add('active'); }, 10);
+ window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ══════════════════════════════════════
+// PROFIL PERSONNEL
+// ══════════════════════════════════════
+function renderProfil() {
+ var total = PROFIL.length;
+ if(total === 0) { startQuiz(); return; }
+ var num = profilCur === -1 ? 1 : profilCur + 1;
+ var elCount = document.getElementById('profil-count');
+ var elFill = (document.getElementById('profil-fill')||{style:{}});
+ var elError = (document.getElementById('profil-error')||{});
+ var elCat = (document.getElementById('profil-cat')||{});
+ var elQ = (document.getElementById('profil-q')||{});
+ if(elCount) elCount.textContent = num + ' / ' + total;
+ if(elFill) elFill.style.width = ((num / total) * 100) + '%';
+ if(elError) elError.style.display = 'none';
+
+ var q = profilCur === -1 ? PROFIL[0] : PROFIL[profilCur];
+ if(elCat) elCat.textContent = q.cat;
+ if(elQ) elQ.textContent = q.q;
+
+ var field = document.getElementById('profil-field');
+
+ if(profilCur === -1) {
+ // Écran identité : prénom / nom / âge
+ field.innerHTML =
+ '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">' +
+ '<input type="text" class="field-input" id="pa-prenom" placeholder="Prénom *">' +
+ '<input type="text" class="field-input" id="pa-nom" placeholder="Nom *">' +
+ '</div>' +
+ '<input type="text" class="field-input" id="pa-age" placeholder="Âge *" style="margin-bottom:10px;">' +
+ '<input type="text" class="field-input" id="pa-pseudo" placeholder="Pseudo (optionnel sera affiché publiquement)">';
+ document.getElementById('profil-next-btn').textContent = 'Continuer →';
+ return;
+ }
+
+ if(q.type === 'radio') {
+ var html = '<div style="display:flex;flex-direction:column;gap:10px;">';
+ q.opts.forEach(function(o){
+ html += '<label class="opt" style="cursor:pointer;" onclick="selectRadioOpt(this)">' +
+ '<div class="opt-radio"></div>' +
+ '<input type="radio" name="pq-'+q.key+'" value="'+o.v+'" style="display:none;">' +
+ '<div class="opt-text">'+o.l+'</div>' +
+ '</label>';
+ });
+ html += '</div>';
+ field.innerHTML = html;
+ } else if(q.type === 'textarea') {
+ field.innerHTML = '<textarea class="field-input" id="profil-answer" rows="4" placeholder="'+q.ph+'"></textarea>';
+ } else {
+ field.innerHTML = '<input type="text" class="field-input" id="profil-answer" placeholder="'+q.ph+'">';
+ }
+
+ var isLast = profilCur === PROFIL.length - 1;
+ document.getElementById('profil-next-btn').textContent = isLast ? 'Passer au test →' : 'Continuer →';
+ setTimeout(function(){
+ var a = document.getElementById('profil-answer');
+ if(a) a.focus();
+ }, 80);
+}
+
+function selectRadioOpt(el) {
+ el.closest('#profil-field').querySelectorAll('.opt').forEach(function(o){
+ o.classList.remove('sel');
+ });
+ el.classList.add('sel');
+ el.querySelector('input[type="radio"]').checked = true;
+}
+
+function backProfil() {
+ if(profilCur <= -1) { showScreen('s-presentation'); return; }
+ profilCur--;
+ renderProfil();
+}
+
+function nextProfil() {
+ (document.getElementById('profil-error')||{}).style.display = 'none';
+
+ if(profilCur === -1) {
+ var prenom = document.getElementById('pa-prenom').value.trim();
+ var nom = document.getElementById('pa-nom').value.trim();
+ var age = document.getElementById('pa-age').value.trim();
+ if(!prenom || !nom || !age) {
+ (document.getElementById('profil-error')||{}).textContent = 'Merci de remplir prénom, nom et âge.';
+ (document.getElementById('profil-error')||{}).style.display = 'block';
+ return;
+ }
+ profilData['prenom'] = prenom;
+ profilData['nom'] = nom;
+ profilData['age'] = age;
+ profilData['pseudo'] = document.getElementById('pa-pseudo').value.trim() || prenom;
+ profilCur = 1;
+ renderProfil();
+ return;
+ }
+
+ var q = PROFIL[profilCur];
+ var val = '';
+
+ if(q.type === 'radio') {
+ var checked = document.querySelector('input[name="pq-'+q.key+'"]:checked');
+ if(!checked) {
+ (document.getElementById('profil-error')||{}).textContent = 'Merci de choisir une réponse.';
+ (document.getElementById('profil-error')||{}).style.display = 'block';
+ return;
+ }
+ val = checked.value;
+ } else {
+ var ans = document.getElementById('profil-answer');
+ val = ans ? ans.value.trim() : '';
+ if(!val) { (document.getElementById('profil-error')||{}).style.display = 'block'; return; }
+ }
+
+ profilData[q.key] = val;
+ profilCur++;
+
+ if(profilCur < PROFIL.length) {
+ renderProfil();
+ } else {
+ startQuiz();
+ }
+}
+
+// ══════════════════════════════════════
+// QUIZ PERSONNALITÉ
+// ══════════════════════════════════════
+function startQuiz() {
+ quizCur = 0; quizSel = null;
+ showScreen('s-quiz');
+ renderQuiz();
+}
+
+function renderQuiz() {
+ var q = QS[quizCur];
+ var total = QS.length;
+ document.getElementById('quiz-count').textContent = (quizCur+1) + ' / ' + total;
+ document.getElementById('quiz-fill').style.width = ((quizCur / total) * 100) + '%';
+ document.getElementById('quiz-label').textContent = q.cat;
+ document.getElementById('quiz-cat').textContent = q.cat;
+ document.getElementById('quiz-q').textContent = q.q;
+
+ var html = '';
+ q.o.forEach(function(o){
+ html += '<div class="opt" onclick="pickOpt(this,\''+o.p+'\')">' +
+ '<div class="opt-radio"></div>' +
+ '<div class="opt-text">'+o.tx+'</div>' +
+ '</div>';
+ });
+ document.getElementById('quiz-opts').innerHTML = html;
+
+ quizSel = null;
+ var btn = document.getElementById('quiz-next-btn');
+ btn.classList.remove('show');
+ btn.textContent = quizCur === QS.length-1 ? 'Révéler mon profil 🤍' : 'Continuer →';
+}
+
+function pickOpt(el, profil) {
+ document.querySelectorAll('#quiz-opts .opt').forEach(function(o){ o.classList.remove('sel'); });
+ el.classList.add('sel');
+ quizSel = profil;
+ document.getElementById('quiz-next-btn').classList.add('show');
+}
+
+function backQuiz() {
+ if(quizCur === 0) {
+ startQuiz();
+ profilCur = PROFIL.length - 1;
+ renderProfil();
+ return;
+ }
+ quizCur--;
+ renderQuiz();
+}
+
+function nextQuiz() {
+ if(!quizSel) return;
+ quizScores[quizSel]++;
+ quizCur++;
+ if(quizCur < QS.length) {
+ renderQuiz();
+ } else {
+ showScreen('s-capture');
+ }
+}
+
+function getTopProfil() {
+ var top = 'fonds', max = 0;
+ Object.keys(quizScores).forEach(function(k){
+ if(quizScores[k] > max) { max = quizScores[k]; top = k; }
+ });
+ return top;
+}
+
+// ══════════════════════════════════════
+// CAPTURE EMAIL
+// ══════════════════════════════════════
+var _pendingProfil = null;
+var _pendingPrenom = '';
+
+function revealFromEvents() {
+ showResult(_pendingProfil, _pendingPrenom);
+ showScreen('s-result');
+}
+
+function submitCapture() {
+ var prenom = document.getElementById('inp-prenom').value.trim();
+ var email = document.getElementById('inp-email').value.trim();
+ var rgpd = document.getElementById('inp-rgpd').checked;
+
+ if(!prenom || !email || email.indexOf('@') < 0) {
+ document.getElementById('cap-error').style.display = 'block';
+ return;
+ }
+ document.getElementById('cap-error').style.display = 'none';
+ if(!rgpd) {
+ document.getElementById('rgpd-error').style.display = 'block';
+ return;
+ }
+ document.getElementById('rgpd-error').style.display = 'none';
+
+ userPrenom = prenom;
+ var topProfil = getTopProfil();
+ var p = PROFILS[topProfil];
+
+ // Envoi Web3Forms
+ var fd = new FormData();
+ fd.append('access_key', 'd42b8d9d-a52c-4888-a489-5dd59b1b0f5b');
+ fd.append('subject', 'Nouveau Profil Amoureux Les Cœurs Solitaires');
+ fd.append('prenom_capture', prenom);
+ fd.append('email', email);
+ fd.append('profil_amoureux', p.name);
+ fd.append('relation', document.getElementById('inp-relation').checked);
+ fd.append('newsletter', document.getElementById('inp-newsletter').checked);
+ // Données profil
+ Object.keys(profilData).forEach(function(k){ fd.append(k, profilData[k]); });
+ // Scores quiz
+ fd.append('scores_quiz', JSON.stringify(quizScores));
+
+ fetch('https://api.web3forms.com/submit', {
+ method: 'POST', body: fd
+ }).catch(function(e){ console.warn('Web3Forms:', e); });
+
+ showResult(topProfil, prenom);
+}
+
+// ══════════════════════════════════════
+// RÉSULTAT
+// ══════════════════════════════════════
+function showResult(topProfil, prenom) {
+ var p = PROFILS[topProfil];
+ var pseudo = profilData['pseudo'] || prenom;
+ var el = document.getElementById('s-result');
+
+ el.innerHTML =
+ // ── NAV FLÈCHES ──
+ '<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 4px 0;margin-bottom:4px;">' +
+ '<button onclick="showScreen(\'s-presentation\')" style="background:none;border:1.5px solid rgba(155,89,182,0.3);border-radius:30px;padding:9px 20px;font-size:13px;color:var(--violet);cursor:pointer;font-family:inherit;">← Recommencer</button>' +
+ '<button onclick="window.scrollTo({top:0,behavior:\'smooth\'})" style="background:none;border:1.5px solid rgba(155,89,182,0.3);border-radius:30px;padding:9px 20px;font-size:13px;color:var(--violet);cursor:pointer;font-family:inherit;">↑ Haut</button>' +
+ '</div>' +
+ // ── HÉROS ──
+ '<div class="result-hero">' +
+ '<div class="result-bg-text">'+p.emoji+'</div>' +
+ '<span class="result-emoji">'+p.emoji+'</span>' +
+ '<div class="result-eyebrow">Votre profil amoureux</div>' +
+ '<div class="result-name">'+p.name+'</div>' +
+ '<div class="result-sub">'+p.sub+'</div>' +
+ '<p class="result-desc">'+p.desc+'</p>' +
+ '</div>' +
+
+ // ── TRAITS ──
+ '<div class="res-section">' +
+ '<div class="sec-title">Votre architecture amoureuse</div>' +
+ '<div class="traits-grid">' +
+ p.traits.map(function(t){
+ return '<div class="trait-card"><div class="trait-icon">'+t.icon+'</div><div class="trait-label">'+t.label+'</div><div class="trait-val">'+t.val+'</div></div>';
+ }).join('') +
+ '</div>' +
+ '</div>' +
+
+ // ── CE QUE VOUS APPORTEZ ──
+ '<div class="res-section">' +
+ '<div class="sec-title">Ce que vous apportez</div>' +
+ '<div class="box"><p>'+p.apport+'</p></div>' +
+ '</div>' +
+
+ // ── COMPATIBILITÉS ──
+ '<div class="res-section">' +
+ '<div class="sec-title">Vos compatibilités naturelles</div>' +
+ '<div class="compat-list">' +
+ p.compats.map(function(c){
+ return '<div class="compat-row">' +
+ '<div class="compat-emoji">'+c.emoji+'</div>' +
+ '<div class="compat-info">' +
+ '<div class="compat-name">'+c.name+'</div>' +
+ '<div class="compat-why">'+c.why+'</div>' +
+ '</div>' +
+ '<span class="compat-badge '+c.badge+'">'+c.label+'</span>' +
+ '</div>';
+ }).join('') +
+ '</div>' +
+ '</div>' +
+
+ // ── CONSEIL LILI ──
+ '<div class="res-section">' +
+ '<div class="sec-title">Le conseil de Lili</div>' +
+ '<div class="box" style="background:rgba(155,89,182,0.05);border-color:rgba(155,89,182,0.25);">' +
+ '<p style="font-family:\'Cormorant Garamond\',serif;font-style:italic;font-size:17px;line-height:1.85;color:var(--noir);">'+p.conseil+'</p>' +
+ '</div>' +
+ '</div>' +
+
+ // ── CTA ÉVÉNEMENTS ──
+ '<div class="cta-events">' +
+ '<div class="cta-events-eyebrow">🤍 Les C\u0153urs Solitaires \u00b7 C\u00f4tes d\'Armor &amp; Grand Ouest</div>' +
+ '<div class="cta-events-title">' +
+ (pseudo ? pseudo+', votre prochaine' : 'Votre prochaine') +
+ '<br><em>belle histoire commence ici.</em>' +
+ '</div>' +
+ '<p class="cta-events-text">Lili place chaque participant·e selon ses vraies affinités lors de ses événements. Votre profil l\'aidera à créer des rencontres qui ont du sens.</p>' +
+ '<div class="events-grid">' +
+ '<a href="https://ypl.me/Pya" target="_blank" class="event-btn">' +
+ '<div class="event-info"><div class="event-name">🍽️ Dîner entre Inconnus</div><div class="event-date">La Baule · Jeudi 19 mars</div></div>' +
+ '<span class="event-arrow">→</span>' +
+ '</a>' +
+ '<a href="https://ypl.me/PUR" target="_blank" class="event-btn" style="border-color:rgba(201,168,76,0.5)">' +
+ '<div class="event-info"><div class="event-name">🤍 Salon de la Rencontre</div><div class="event-date">Samedi 06/06/2026 · Vannes</div></div>' +
+ '<span class="event-arrow" style="color:#E8C97A;">→</span>' +
+ '</a>' +
+ '</div>' +
+ 
+ '<p style="font-size:12px;color:rgba(255,255,255,0.55);">Questions ? lilikarantez@gmail.com</p>' +
+ '</div>' +
+
+ // ── SIGNATURE ──
+ '<div class="lili-sig">' +
+ '<p>Merci d\'avoir pris le temps de vous confier. Votre profil dit beaucoup de qui vous êtes et de ce que vous méritez vraiment. La prochaine belle histoire commence peut-être lors d\'un de nos événements.<br><br>' +
+ '<strong>À très bientôt !</strong><br><em>Lili Karantez 🤍</em></p>' +
+ '</div>' +
+
+ // ── FOOTER ──
+ '<div class="footer-legal">' +
+ '<div class="brand-f">Les Cœurs Solitaires</div>' +
+ '<div class="footer-legal-info">' +
+ '🤍 Lili Karantez Auteure · Éditrice · Créatrice d\'expériences relationnelles<br>' +
+ '📍 Centre des Affaires Lorient La Base 1 rue Étienne d\'Orves, 56100 Lorient<br>' +
+ '✉️ lilikarantez@gmail.com &nbsp;·&nbsp; SIRET : 40149331700069' +
+ '</div>' +
+ '<div class="footer-social">' +
+ '<a href="https://www.facebook.com/lili.karantez.3" target="_blank" class="social-btn">' +
+ '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>' +
+ 'Facebook' +
+ '</a>' +
+ '<a href="https://www.instagram.com/lilikarantez/" target="_blank" class="social-btn">' +
+ '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>' +
+ 'Instagram' +
+ '</a>' +
+ '</div>' +
+ '<div class="footer-copy">© 2026 Lili Karantez · Tous droits réservés · Propriété intellectuelle exclusive<br>Toute reproduction sans autorisation écrite est strictement interdite.</div>' +
+ '<div style="margin-top:16px;"><button style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:underline;font-family:\'Jost\',sans-serif;" onclick="retry()">Recommencer le questionnaire</button></div>' +
+ '</div>';
+
+ showScreen('s-result');
+}
+
+// ══════════════════════════════════════
+// RESET
+// ══════════════════════════════════════
+function retry() {
+ profilCur = -1;
+ quizCur = 0;
+ quizSel = null;
+ profilData = {};
+ userPrenom = '';
+ quizScores = {fonds:0, jardin:0, etoiles:0, etincelle:0, racines:0, metamorphose:0};
+ showScreen('s-intro');
+}
+</script>
+</body>
+</html>
